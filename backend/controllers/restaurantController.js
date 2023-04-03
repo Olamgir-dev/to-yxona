@@ -29,7 +29,7 @@ const getAllRestaurant = async (req, res) => {
         address: restaurant.address,
         price: restaurant.price,
         generalInformation: restaurant.generalInformation,
-        imageUrl: "http:/localhost:5000/" + restaurant.photo,
+        imageUrl: "https://toyxona-app.onrender.com/" + restaurant.photo,
         createdAt: restaurant.createdAt,
         updatedAt: restaurant.updatedAt,
         __v: restaurant.__v
@@ -50,7 +50,7 @@ const getRestaurant = async (req, res) => {
       address: restaurant.address,
       price: restaurant.price,
       generalInformation: restaurant.generalInformation,
-      imageUrl: "http:/localhost:5000/" + restaurant.photo,
+      imageUrl: "https://toyxona-app.onrender.com/" + restaurant.photo,
       createdAt: restaurant.createdAt,
       updatedAt: restaurant.updatedAt,
       __v: restaurant.__v
