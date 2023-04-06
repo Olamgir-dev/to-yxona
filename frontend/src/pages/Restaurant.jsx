@@ -1,0 +1,73 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import ReactImageMagnify from 'react-image-magnify';
+import { useParams } from 'react-router-dom'
+function Restaurant() {
+    const [data, setData] = useState()
+    const [load, setLoad] = useState(false)
+    const { _id } = useParams()
+    console.log(_id)
+    console.log(data)
+    useEffect(() => {
+        axios
+            .get(`http://localhost:5000/restaurant/${_id}`)
+            .then((response) => {
+                setData(response.data)
+                setLoad(false)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        return () => {
+            setLoad(true)
+        }
+    }, [])
+    return (
+        <>
+            <div className="container" style={{ marginTop: '80px' }}>
+                <h4 className='text-center'>{data?.name}</h4>
+                <div className="row">
+                    <div className="col-xl-6" style={{ height: '400px' }}>
+                        <ReactImageMagnify
+                            {...{
+                                smallImage: {
+                                    alt: 'Wristwatch by Ted Baker London',
+                                    width: 560,
+                                    height: 600,
+                                    className:'w-100',
+                                    isFluidWidth: false,
+                                    src: `${data?.imageUrl}`,
+                                },
+                                largeImage: {
+                                    src: `${data?.imageUrl}`,
+                                    width: 2000,
+                                    height: 1800,
+                                },
+                                style: {
+                                    objectFit:'cover',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '5px',
+                                    height:'500px',
+                                    width: '100%',
+                                },
+                            }}
+                        />
+
+
+                        {/* <img className='w-100 rounded' style={{ height: '500px', objectFit: 'cover' }} src={data?.imageUrl} alt="404" /> */}
+                    </div>
+                    <div className="col-xl-6 ">
+                        <iframe src="https://lms.tuit.uz" title="W3Schools Free Online Web Tutorials"></iframe>
+                        <h1 className='fw-bold'>Nomi:{data?.name}</h1>
+                        <h4>Sig'mi: {data?.capacity} -ta</h4>
+                        <h5>Narxi: ${data?.price}</h5>
+                    </div>
+                </div>
+            </div>
+
+
+        </>
+    )
+}
+
+export default Restaurant

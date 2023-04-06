@@ -29,7 +29,7 @@ const getAllRestaurant = async (req, res) => {
         address: restaurant.address,
         price: restaurant.price,
         generalInformation: restaurant.generalInformation,
-        imageUrl: "https://toyxona-app.onrender.com/" + restaurant.photo,
+        imageUrl: "http://localhost:5000/" + restaurant.photo,
         createdAt: restaurant.createdAt,
         updatedAt: restaurant.updatedAt,
         __v: restaurant.__v
@@ -40,17 +40,26 @@ const getAllRestaurant = async (req, res) => {
     res.status(500).json({ msg: err.message })
   }
 }
+const bigSort = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.find()
+    const newRestauran = restaurant.sort((a, b) => b.price - a.price)
+    res.status(200).json(newRestauran)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
 const getRestaurant = async (req, res) => {
   const { _id } = req.params
   try {
     const restaurant = await Restaurant.findOne({ _id })
-    const response =await {
+    const response = await {
       name: restaurant.name,
       capacity: restaurant.capacity,
       address: restaurant.address,
       price: restaurant.price,
       generalInformation: restaurant.generalInformation,
-      imageUrl: "https://toyxona-app.onrender.com/" + restaurant.photo,
+      imageUrl: "http://localhost:5000/" + restaurant.photo,
       createdAt: restaurant.createdAt,
       updatedAt: restaurant.updatedAt,
       __v: restaurant.__v
@@ -61,4 +70,4 @@ const getRestaurant = async (req, res) => {
   }
 };
 
-module.exports = { getAllRestaurant, addRestaurant, getRestaurant }
+module.exports = { getAllRestaurant, addRestaurant, getRestaurant,bigSort }

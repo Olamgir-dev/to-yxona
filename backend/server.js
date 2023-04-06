@@ -18,7 +18,8 @@ app.use((req, res, next) => {
 app.use('/uploads',express.static('uploads'))
 const restaurant = require('./routes/restaurantRoute')
 app.use('/restaurant', restaurant);
-
+const adminLogin = require('./routes/adminRoute')
+app.use('/admin',adminLogin)
 //databalse ga ulanish 
 mongoose.set('strictQuery', true);
 mongoose.connect(mongourl)
