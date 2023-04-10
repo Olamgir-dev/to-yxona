@@ -1,59 +1,66 @@
 import React, { useState } from 'react'
-
+import axios from 'axios'
+import Swal from "sweetalert2";
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 function AdminLogin() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const dispatch = useDispatch()
+    const [login, setLogin] = useState({})
     const [showPassword, setShowPassword] = useState(false);
+    const navgate = useNavigate();
     const toggleShowPassword = () => setShowPassword(!showPassword);
-    // Formni joylashtirish funksiyasi
+    const handleChange = (e) => {
+        setLogin({ ...login, [e.target.name]: e.target.value });
+    }
     const handleSubmit = e => {
         e.preventDefault();
-        // Username va passwordni serverga yuborish
-        fetch('/admin/login', {
-            method: 'POST',
-            body: JSON.stringify({ username, password }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Agar kirish muvaffaqiyatli bo'lsa, sahifani yuklash
-                    window.location.href = '/admin/dashboard';
-                } else {
-                    alert('Login muvaffaqiyatsiz bo\'ldi!');
-                }
+        axios.post('http://localhost:5000/admin/login', login)
+            .then(res => {
+                sessionStorage.setItem('user', JSON.stringify(res.data))
+                Swal.fire(
+                    'Yaxshi',
+                    'Siz mvosfaqqiyatli admin panelga kirdnggiz',
+                    `${res.data.msg}`
+                ).then((result) => {
+                    navgate('/admin/home')
+                })
+
             })
             .catch(error => {
-                console.error('Error:', error);
+                Swal.fire(
+                    'Xatolik!',
+                    'Login yoki parol xato',
+                    `${error.response.data.msg}`
+                )
             });
     };
-
     return (
         <>
             <div className="container" style={{ marginTop: '80px' }}>
                 <div className="row">
                     <div className="col-xl-3"></div>
                     <div className="col-xl-6">
-                        <h4 className='text-center'>Log in</h4>
-                        <form action="" className="row g-4">
+                        <h4 className='text-center'>Admin Log in</h4>
+                        <form action="" className="row g-4" onSubmit={handleSubmit}>
                             <div className="col-12">
                                 <label htmlFor=''>Username<span className="text-danger">*</span></label>
                                 <div className="input-group">
                                     <div className="input-group-text"><i className='bx bxs-user fs-4'></i></div>
-                                    <input type="text" className="form-control" placeholder="Enter Username" />
+                                    <input type="text" className="form-control" name='username' value={login.username || ''} onChange={handleChange} placeholder="Enter Username" />
                                 </div>
                             </div>
                             <div className="col-12">
                                 <label htmlFor=''>Password<span className="text-danger">*</span></label>
                                 <div className="input-group">
                                     <div className="input-group-text"><i className='bx bxs-lock-alt fs-4'></i></div>
-                                    <input type={showPassword ? "text" : "password"} id="password" className="form-control" placeholder="Enter Password" />
+                                    <input type={showPassword ? "text" : "password"} name='password' value={login.password || ''} onChange={handleChange} id="password" className="form-control" placeholder="Enter Password" />
                                     <div className="input-group-text">
+
                                         <input type="checkbox" checked={showPassword} className="form-check-input mt-0" onChange={toggleShowPassword} aria-label="Checkbox for following text input" />
                                     </div>
                                 </div>
                             </div>
+                            <i className="fa fa-eye-slash"></i>
                             <div className="row mt-3 ">
                                 <div className="col-sm-6">
                                     <div className="form-check">

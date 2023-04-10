@@ -13,6 +13,14 @@ app.use((req, res, next) => {
     console.log(`${req.method}: ${req.path}`);
     next();
 });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Headers', 
+        'Origin, X-Requested-With ,Content-Type ,Accept, Authorization')
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH,PUT, DELETE');
+    next();
+})
 
 //router 
 app.use('/uploads',express.static('uploads'))

@@ -1,6 +1,6 @@
-.border {
+.border-card {
     position: relative;
-    width: 350px;
+    // width: 350px;
     overflow: hidden;
     box-shadow: 5px, 5px 10px,rgb(27, 27, 27,.5);
     .image {
@@ -31,7 +31,7 @@
         opacity: 1;
     }
     .middle {
-        background-color:rgb(27, 27, 27,.5);
+        background-color:rgb(27, 27, 27,.6);
         color: white;
         font-size: 16px;
         padding: 16px 32px;

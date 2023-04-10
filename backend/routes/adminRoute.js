@@ -7,7 +7,7 @@ router.post('/login', (req, res) => {
         const adminName =  process.env.ADMIN_LOGIN;
         const adminPassword =  process.env.ADMIN_PRAOL
         if (adminName === username && password === adminPassword) {
-            res.status(200).json({ msg: 'success' })
+            res.status(200).json({ msg: 'success',username:adminName,password:adminPassword })
         }else{
             res.status(500).json({ msg: 'error' })
         }

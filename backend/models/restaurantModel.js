@@ -19,14 +19,22 @@ const RestaurantSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        required: true
+        required: false
     },
     generalInformation: {
         type: String,
         required: false
+    },
+    bookArray: {
+        type: [{ type: String }],
     }
 },
     { timestamps: true }
 )
+
+// RestaurantSchema.statics.addBook = async function (req) {
+//     const { bookArray } = req.body;
+    
+// }
 
 module.exports = mongoose.model('Restaurant', RestaurantSchema);
