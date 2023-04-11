@@ -19,7 +19,7 @@ function Home() {
     e.preventDefault()
     setSortArr([...restaurants]?.sort((a, b) => b.price - a.price))
   }
-  console.log(restaurants)
+
   const handleInputChange = (event) => {
     setQuery(event.target.value);
     if (event.target.value.length >= 2) {
@@ -52,12 +52,12 @@ function Home() {
           <input className="form-control  m-2" value={query} onChange={handleInputChange} type="search" placeholder="Search" aria-label="Search" />
           <div className="form-check mt-2 ">
             <button className="btn btn-outline-secondary" onClick={restaurantsSort} for="flexRadioDefault1">
-            <i className='bx fs-4 bx-trending-up'></i>
+              <i className='bx fs-4 bx-trending-up'></i>
             </button>
           </div>
           <div className="form-check mt-2 ">
             <button className="btn btn-outline-secondary" onClick={reverseRestaurantsSort} for="flexRadioDefault2">
-            <i className='bx fs-4 bx-trending-down'></i>
+              <i className='bx fs-4 bx-trending-down'></i>
             </button>
           </div>
         </div>

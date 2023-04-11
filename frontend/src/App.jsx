@@ -29,11 +29,11 @@ function App() {
             <Route path='/:_id' element={<Restaurant />} />
             <Route path="*" element={<NoPage />} />
           </Route>
-          <Route path='admin' element={<AdminLayout />}>
+          <Route path='/admin' element={<AdminLayout />}>
             <Route index element={<AdminLogin />} />
-            <Route path='home' element={<AdminHome />} />
-            <Route path='add' element={<AddRestaurant />} />
-            <Route path=':_id' element={<AdminRestaurant />} />
+            <Route path='/admin/home' element={<AdminHome />} />
+            <Route path='/admin/add' element={<AddRestaurant />} />
+            <Route path='/admin/:_id' element={<AdminRestaurant />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 const Restaurant = require("../models/restaurantModel");
-
+const fs = require("fs");
 const addRestaurant = async (req, res) => {
   try {
     const restauran = new Restaurant({
@@ -43,7 +43,9 @@ const getAllRestaurant = async (req, res) => {
 }
 
 const getRestaurant = async (req, res) => {
+
   const { _id } = req.params
+  console.log(_id)
   try {
     const restaurant = await Restaurant.findOne({ _id })
     const response = await {
@@ -64,28 +66,56 @@ const getRestaurant = async (req, res) => {
   }
 };
 
-const deletedRestaurant = async (req, res) => {
-  const { _id } = await req.params;
+const deleteRestaurant = (req, res) => {
+  const { _id } = req.params;
+  const restaurant = Restaurant.findByIdAndDelete({ _id })
+    .then((response) => {
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      res.status(500).json({ error: err.message })
+    })
+  console.log(restaurant)
+  // fs.unlink(restaurant.photo, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //   }
+  // })
+  //   .then(() => {
+  //     res.status(204).json({
+  //       status: 'success',
+  //       data: null
+  //     });
+  //   })
+  //   .catch((err) => {
+  //     res.status(400).json({
+  //       status: 'fail',
+  //       message: err.message
+  //     });
+  //   })
+
+}
+const putRestaurant = async (req, res) => {
   try {
-    const restaurant = await Restaurant.findByIdAndRemove({ _id })
-    res.status(200).json(restaurant);
+
   } catch (err) {
-    res.status(500).json({ error: err.message })
+
   }
 }
 const bookRestaurant = async (req, res) => {
   const { _id } = req.params
   const { book } = req.body;
-  // console.log(book)
   try {
-    const restaurant = await Restaurant.updateOne(
+    const ArrayBook = await Restaurant.find({ _id });
+     const isBook = ArrayBook[0].bookArray.find(bookArr => bookArr === book)
+    const restaurant =(isBook===undefined)&& await Restaurant.updateOne(
       { _id },
       { $push: { bookArray: book } },
       { new: true }
-    )
-    res.status(200).json(restaurant)
+    );
+    res.status(200).json(isBook===undefined)
   } catch (err) {
-    res.status(500).json({ error: err })
+    res.status(500).json({ isBook })
   }
 }
 
@@ -93,6 +123,8 @@ module.exports = {
   getAllRestaurant,
   addRestaurant,
   getRestaurant,
-  deletedRestaurant,
+  deleteRestaurant,
+  bookRestaurant,
+  putRestaurant,
   bookRestaurant
 }

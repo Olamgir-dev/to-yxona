@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
@@ -28,16 +29,41 @@ function Restaurant() {
 
     const bookDate = () => {
         axios
-            .put(`http://localhost:5000/restaurant/${_id}`,{book})
+            .put(`http://localhost:5000/restaurant/book/${_id}`, { book })
             .then((response) => {
-                setData(response.data)
-                setLoad(true)
+                response.data ?
+                    Swal.fire({
+                        title: `Siz xaqiaqtdan xam ${book} sanaga joyni band qilomqchmsiz?`,
+                        text: "",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'ok!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Yaxshi!',
+                                `To'yxonani  muvaffaqiyatli ${book} sanaga band qildnggiz`,
+                                'success'
+                            )
+                        }
+                    }) :
+                    Swal.fire(
+                        'Xatolik',
+                        `Bu sanaga oldin band qilinggan`,
+                        'error'
+                    )
             })
             .catch((error) => {
                 console.log(error);
+                Swal.fire(
+                    'Xatolik',
+                    `Siz xato qildinggiz`,
+                    'error'
+                )
             })
     }
-
     return (
         <>
             {load ? <div className="container" style={{ marginTop: '80px' }}>
@@ -86,6 +112,7 @@ function Restaurant() {
                                 // }
                                 />
                             </LocalizationProvider>
+                            <button disabled={!book} onClick={bookDate} className='btn btn-outline-primary'>Band qilish</button>
                         </div>
                     </div>
                 </div>
