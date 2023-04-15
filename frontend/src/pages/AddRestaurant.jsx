@@ -9,45 +9,39 @@ function AddRestaurant() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    setData({ ...data, photo: e.target.files[0] });
-  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('photo', data.photo);
-      formData.append('name', data.name);
-      formData.append('capacity', data.capacity);
-      formData.append('price', data.price);
-      formData.append('address', data.address);
-      formData.append('generalInformation', data.generalInformation);
+    axios
+      .post('http://localhost:5000/restaurant/add',  data )
+      .then((res) => {
+        Swal.fire(
+          'Yaxshi!',
+          `To'yxona qo'shildi`,
+          'success'
+        ).then(() => {
+          // navgate('/admin/home')
+        });
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err.message)
+        Swal.fire(
+          'Xatolik!',
+          `To'yxona qushguncha xatolik`,
+          'error'
+        );
+      })
 
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      };
-      console.log(formData);
-      const response = await axios.post('http://localhost:5000/restaurant/add', formData, config);
-      Swal.fire(
-        'Yaxshi!',
-        `To'yxona qo'shildi`,
-        'success'
-      ).then(() => {
-        navgate('/admin/home')
-      });
-    } catch (error) {
-      console.error(error);
-      Swal.fire(
-        'Xatolik!',
-        `${error.message}`,
-        'error'
-      );
-    }
-    //Siz malumotlarni xato to\'ldirdingiz
+
+
   };
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    setData({ ...data, 'photo': base64 })
+  }
+  console.log(data)
   return (
     <>
       <div className="container" style={{ marginTop: '80px' }}>
@@ -74,7 +68,7 @@ function AddRestaurant() {
               </div>
               <div className="mb-3">
                 <label for="exampleFormControlInput5" className="form-label">Surat</label>
-                <input type="file" className="form-control" id="exampleFormControlInput5" name='photo' onChange={handleFileChange} />
+                <input type="file" accept='.jpg, .png, .jpeg' className="form-control" id="exampleFormControlInput5" name='photo' onChange={(e) => handleFileUpload(e)} />
               </div>
               <div className="mb-3">
                 <label for="exampleFormControlTextarea1" className="form-label">Umumiy ma'lumot</label>
@@ -92,3 +86,16 @@ function AddRestaurant() {
 }
 
 export default AddRestaurant
+
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result)
+    };
+    fileReader.onerror = (error) => {
+      reject(error)
+    }
+  })
+}

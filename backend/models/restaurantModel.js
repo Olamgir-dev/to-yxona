@@ -32,9 +32,4 @@ const RestaurantSchema = new mongoose.Schema({
     { timestamps: true }
 )
 
-// RestaurantSchema.statics.addBook = async function (req) {
-//     const { bookArray } = req.body;
-    
-// }
-
 module.exports = mongoose.model('Restaurant', RestaurantSchema);

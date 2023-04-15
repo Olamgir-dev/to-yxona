@@ -12,14 +12,16 @@ import AddRestaurant from './pages/AddRestaurant';
 import AdminHome from './pages/AdminHome';
 import AdminRestaurant from './pages/AdminRestaurant';
 function App() {
-  const [user, setUser] = useState()
+  const [users, setUsers] = useState()
+  const [load, setLoad] = useState(false)
   useEffect(() => {
     const user = sessionStorage.getItem('user')
-    if (user) {
-      setUser(JSON.parse(user))
+    user && setUsers(JSON.parse(user))
+    setLoad(true)
+    return () => {
+      setLoad(false)
     }
   }, [])
-
   return (
     <>
       <BrowserRouter>
@@ -29,11 +31,11 @@ function App() {
             <Route path='/:_id' element={<Restaurant />} />
             <Route path="*" element={<NoPage />} />
           </Route>
-          <Route path='/admin' element={<AdminLayout />}>
+          <Route path='/admin' element={<AdminLayout />}> 
             <Route index element={<AdminLogin />} />
-            <Route path='/admin/home' element={<AdminHome />} />
-            <Route path='/admin/add' element={<AddRestaurant />} />
-            <Route path='/admin/:_id' element={<AdminRestaurant />} />
+            <Route path='/admin/home' element={users &&( users ? <AdminHome /> : <Navigate to="/admin" replace={true} />)} />
+            <Route path='/admin/add' element={users &&( users ? <AddRestaurant /> : <Navigate to="/admin" replace={true} />)} />
+            <Route path='/admin/:_id' element={users &&( users ? <AdminRestaurant /> : <Navigate to="/admin" replace={true} />)} />
           </Route>
         </Routes>
       </BrowserRouter>

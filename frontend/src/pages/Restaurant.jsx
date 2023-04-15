@@ -4,14 +4,12 @@ import Swal from 'sweetalert2'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-// import ReactImageMagnify from 'react-image-magnify';
 import { useParams } from 'react-router-dom'
 function Restaurant() {
     const [data, setData] = useState()
     const [book, setBook] = useState()
     const [load, setLoad] = useState(false)
     const { _id } = useParams()
-    console.log(book?.$d)
     useEffect(() => {
         axios
             .get(`http://localhost:5000/restaurant/${_id}`)
@@ -42,6 +40,7 @@ function Restaurant() {
                         confirmButtonText: 'ok!'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            console.log(result);
                             Swal.fire(
                                 'Yaxshi!',
                                 `To'yxonani  muvaffaqiyatli ${book} sanaga band qildnggiz`,
@@ -70,31 +69,9 @@ function Restaurant() {
                 <h4 className='text-center'>{data?.name}</h4>
                 <div className="row">
                     <div className="col-xl-6 " >
-                        {/* <ReactImageMagnify
-                            {...{
-                                smallImage: {
-                                    alt: 'Wristwatch by Ted Baker London',
-                                    width: 560,
-                                    height: 600,
-                                    className: 'w-100',
-                                    isFluidWidth: false,
-                                    src: `${data?.imageUrl}`,
-                                },
-                                largeImage: {
-                                    src: `${data?.imageUrl}`,
-                                    width: 2000,
-                                    height: 1800,
-                                },
-                                style: {
-                                    objectFit: 'cover',
-                                    border: '1px solid #ccc',
-                                    borderRadius: '5px',
-                                    height: '500px',
-                                    width: '90%',
-                                },
-                            }}
-                        /> */}
-                        <img className='w-100 rounded' style={{ height: '500px', objectFit: 'cover' }} src={data?.imageUrl} alt="404" />
+                        {
+                          data.photo&& <img className='w-100 rounded' style={{ height: '500px', objectFit: 'cover' }} src={data?.photo} alt="404" />
+                        }
                     </div>
                     <div className="col-xl-6 ">
                         <h1 className='fw-bold'>Nomi:{data?.name}</h1>
@@ -102,14 +79,10 @@ function Restaurant() {
                         <h5>Narxi: ${data?.price}</h5>
                         <div className='w-100 ms-0' >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                {/* <StaticDatePicker orientation="landscape" /> */}
                                 <StaticDatePicker
                                     displayStaticWrapperAs="desktop"
-                                    // value={dayjs()}
                                     orientation="landscape"
                                     onChange={(newValue) => setBook(newValue)}
-                                // renderInput={(params) => <TextField {...params} />
-                                // }
                                 />
                             </LocalizationProvider>
                             <button disabled={!book} onClick={bookDate} className='btn btn-outline-primary'>Band qilish</button>

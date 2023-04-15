@@ -20,6 +20,7 @@ function Home() {
     setSortArr([...restaurants]?.sort((a, b) => b.price - a.price))
   }
 
+
   const handleInputChange = (event) => {
     setQuery(event.target.value);
     if (event.target.value.length >= 2) {
@@ -31,16 +32,19 @@ function Home() {
       setResults([]);
     }
   };
-  useEffect(() => {
+  useEffect(  () => {
+
     axios
       .get('http://localhost:5000/restaurant')
       .then(res => {
         dispatch(setRestaurant(res.data))
         setLoad(true)
       })
-    return () => {
-      setLoad(false)
-    }
+      return () => {
+        setLoad(false)
+      }
+
+  
   }, [])
   return (
     <>{

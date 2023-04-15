@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-// import ReactImageMagnify from 'react-image-magnify';
 import { useParams } from 'react-router-dom'
 function AdminRestaurant() {
     const [data, setData] = useState()
@@ -63,8 +62,6 @@ function AdminRestaurant() {
 
     }
     const updateRestaurtnat = () => {
-   
-
         setDisplay(!display)
     }
 
@@ -105,13 +102,14 @@ function AdminRestaurant() {
                 )
             })
     }
+    console.log(data)
     return (
         <>
             {load ? <div className="container mt-3" >
                 <h4 className='text-center'>{data?.name}</h4>
                 <div className="row">
                     <div className="col-xl-6 " >
-                        <img className='w-100 rounded' style={{ height: '500px', objectFit: 'cover' }} src={data?.imageUrl} alt="404" />
+                        <img className='w-100 rounded' style={{ height: '500px', objectFit: 'cover' }} src={data?.photo} alt="404" />
                     </div>
                     <div className="col-xl-6 ">
                         <h1 className='fw-bold'>Nomi:{data?.name}</h1>
@@ -121,13 +119,10 @@ function AdminRestaurant() {
                         <h5>Narxi: ${data?.price}</h5>
                         <div className='w-100  d-flex ' >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                {/* <StaticDatePicker orientation="landscape" /> */}
                                 <StaticDatePicker
                                     displayStaticWrapperAs="desktop"
-                                    // value={dayjs()}
                                     orientation="landscape"
                                     onChange={(newValue) => setBook(newValue.$d)}
-                                // renderInput={(params) => <TextField {...params} />
                                 // }
                                 />
                             </LocalizationProvider>
@@ -140,6 +135,37 @@ function AdminRestaurant() {
 
                     </div>
                 </div>
+                { data?.bookArray&&
+                <div className="row mt-5">
+                    <h5 className='text-center'>{data?.name} - to'yxonasi band qilngan sanalar</h5>
+                    <div className='col-xl-1'></div>
+                    <div className="col-xl-10">
+                        <table className='table table-hover border'>
+                            <thead>
+                                <tr>
+                                    <th className='col'>№</th>
+                                    <th className='col'>Sana</th>
+                                    <th className='col'>O'zgartrsh</th>
+                                    <th className='col'>O'chrish</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data?.bookArray.map((value, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td className='col'>{index + 1}</td>
+                                                <td className='col'>{value}</td>
+                                                <td style={{cursor:'pointer'}} className='col'><i class='bx fs-4 bx-pencil'></i></td>
+                                                <td style={{cursor:'pointer'}} className='col'><i class='bx fs-4 bx-message-alt-x'></i></td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>}
             </div> :
                 <h1 style={{ height: "80vh" }} className='w-100'>
                     <i style={{ position: "fixed", top: "45vh", left: "50vw", zIndex: 12, fontSize: "100px" }} className='bx bx-loader bx-spin bx-flip-horizontal' ></i>
@@ -209,7 +235,7 @@ function AdminRestaurant() {
                                         className="form-control"
                                         id="exampleFormControlTextarea1"
                                         rows="3" placeholder="umumiy ma'lumot(ixtyoriy)"
-                                    
+
                                         name='generalInformation'
                                         onChange={handleChange}></textarea>
                                 </div>
