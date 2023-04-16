@@ -3,18 +3,17 @@ const Restaurant = require("../models/restaurantModel");
 const addRestaurant = async (req, res) => {
   try {
     const restauran = new Restaurant(req.body);
-    console.log(restauran)
     const newRestauran = restauran.save()
-    res.status(200).json({ newRestauran })  
+    res.status(200).json({ newRestauran })
   } catch (err) {
-    res.status(500).json({msg: err.message})
+    res.status(500).json({ msg: err.message })
   }
 };
 
 const getAllRestaurant = async (req, res) => {
   try {
     const restaurants = await Restaurant.find()
-    const response = restaurants.map(restaurant =>restaurant)
+    const response = restaurants.map(restaurant => restaurant)
     res.status(200).json(restaurants)
   } catch (err) {
     res.status(500).json({ msg: err.message })
@@ -42,10 +41,23 @@ const deleteRestaurant = (req, res) => {
     })
 }
 const putRestaurant = async (req, res) => {
+  const { _id } = await req.params
+   const { name, capacity, price, address, generalInformation } = await req.body
   try {
-
+    const update = await Restaurant.updateOne(
+      { _id },
+      {
+        name,
+        capacity,
+        price,
+        address,
+        generalInformation
+      },
+      { new: true }
+    )
+    res.status(201).json(update)
   } catch (err) {
-
+    res.status(500).json({ error: err.message })
   }
 }
 const bookRestaurant = async (req, res) => {

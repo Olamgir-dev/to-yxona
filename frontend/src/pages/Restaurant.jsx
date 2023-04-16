@@ -17,9 +17,7 @@ function Restaurant() {
                 setData(response.data)
                 setLoad(true)
             })
-            .catch((error) => {
-                console.log(error);
-            })
+          
         return () => {
             setLoad(false)
         }
@@ -55,7 +53,6 @@ function Restaurant() {
                     )
             })
             .catch((error) => {
-                console.log(error);
                 Swal.fire(
                     'Xatolik',
                     `Siz xato qildinggiz`,
@@ -75,6 +72,7 @@ function Restaurant() {
                     </div>
                     <div className="col-xl-6 ">
                         <h1 className='fw-bold'>Nomi:{data?.name}</h1>
+                        <p className='p'>{data.generalInformation}</p>
                         <h4>Sig'mi: {data?.capacity} -ta</h4>
                         <h5>Narxi: ${data?.price}</h5>
                         <div className='w-100 ms-0' >

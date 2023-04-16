@@ -7,8 +7,8 @@ function Layout() {
     <>
       <Navbar  />
       <Outlet />
-      {/* <Footer /> */}
-      <a className='nav-link ms-5' href='https://t.me/OlamgirIbrohimov' target={'_blank'}>Admin</a>
+      <Footer />
+    
     </>
   )
 }

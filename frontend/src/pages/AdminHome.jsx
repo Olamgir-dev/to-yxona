@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Card from '../component/Card'
-// import Carusel from "../component/Carusel";
-import  { setRestaurant } from '../redux/reducers/restaurant.js';
+import { setRestaurant } from '../redux/reducers/restaurant.js';
 import { useSelector, useDispatch } from 'react-redux'
 import AdminCard from '../component/AdminCard'
 import axios from 'axios'
@@ -25,7 +23,7 @@ function Home() {
     if (event.target.value.length >= 2) {
       const regex = new RegExp(`${event.target.value}`, 'i');
       const newResult = restaurants?.filter((weddinghall) => regex.test(weddinghall.name));
-      
+
       setResults(newResult);
     } else {
       setResults([]);
@@ -45,26 +43,23 @@ function Home() {
   return (
     <>{
       load ? <>
-        {/* <div className="container-fluid mt-5" style={{height:"80px"}}>  */}
-          {/* <Carusel /> */}
-        {/* </div> */}
         <h1 className='text-center h3'>Admin Panel</h1>
         <div className="container d-flex">
-        <input className="form-control  m-2" value={query} onChange={handleInputChange}  type="search" placeholder="Search" aria-label="Search" />
-        <div className="form-check mt-2 ">
+          <input className="form-control  m-2" value={query} onChange={handleInputChange} type="search" placeholder="Search" aria-label="Search" />
+          <div className="form-check mt-2 ">
             <button className="btn btn-outline-secondary" onClick={restaurantsSort} for="flexRadioDefault1">
-            <i className='bx fs-4 bx-trending-up'></i>
+              <i className='bx fs-4 bx-trending-up'></i>
             </button>
           </div>
           <div className="form-check mt-2 ">
             <button className="btn btn-outline-secondary" onClick={reverseRestaurantsSort} for="flexRadioDefault2">
-            <i className='bx fs-4 bx-trending-down'></i>
+              <i className='bx fs-4 bx-trending-down'></i>
             </button>
           </div>
         </div>
         <div className="container">
           <div className="row  mt-4 ">
-          {
+            {
               (results.length === 0 && sortArr.length === 0) ? restaurants?.map((restaurant) => {
                 return (
                   <AdminCard key={restaurant._id} data={restaurant} />

@@ -6,6 +6,7 @@ function Navbar() {
             <nav className="navbar navbar-expand-lg bg-light fixed-top">
                 <div className="container">
                     <Link className="navbar-brand" to='/'>
+                        <img className='h-100' src="../image/Restaurant.png" alt="" />
                         to'yxona.uz
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -19,16 +19,12 @@ function AdminRestaurant() {
         let name = e.target.name;
         setUpdate({ ...update, [name]: value });
     };
-    console.log(book)
     useEffect(() => {
         axios
             .get(`http://localhost:5000/restaurant/${_id}`)
             .then((response) => {
                 setData(response.data)
                 setLoad(true)
-            })
-            .catch((error) => {
-                console.log(error);
             })
         return () => {
             setLoad(false)
@@ -62,6 +58,24 @@ function AdminRestaurant() {
 
     }
     const updateRestaurtnat = () => {
+        axios
+           .put(`http://localhost:5000/restaurant/${_id}`,update)
+           .then(response => {
+            Swal.fire(
+                'Yaxshi!',
+                `To'yxona  muvaffaqiyatli  malumotari uzgardi`,
+                'success'
+            ).then(()=>{
+                navgate(`/admin/home`)
+            })
+           })
+           .catch(error=>{
+            Swal.fire(
+                'Xatolik',
+                `To'yxona malumotari uzgartrshda xatolik`,
+                'error'
+            )
+           })
         setDisplay(!display)
     }
 
@@ -102,7 +116,6 @@ function AdminRestaurant() {
                 )
             })
     }
-    console.log(data)
     return (
         <>
             {load ? <div className="container mt-3" >
@@ -111,6 +124,7 @@ function AdminRestaurant() {
                     <div className="col-xl-6 " >
                         <img className='w-100 rounded' style={{ height: '500px', objectFit: 'cover' }} src={data?.photo} alt="404" />
                     </div>
+                  
                     <div className="col-xl-6 ">
                         <h1 className='fw-bold'>Nomi:{data?.name}</h1>
                         <p>{data?.generalInformation}</p>
@@ -200,7 +214,7 @@ function AdminRestaurant() {
                                         name="capacity"
                                         placeholder="sig'm"
                                         onChange={(e) => handleChange(e)}
-                                        type="text"
+                                        type="number"
                                         className="form-control col-8"
                                         aria-label="Sizing example input"
                                         aria-describedby="inputGroup-sizing-default" />
@@ -211,7 +225,7 @@ function AdminRestaurant() {
                                         <i className='bx fs-5 bx-location-plus'></i>
                                     </span>
                                     <input
-                                        name="description"
+                                        name="address"
                                         onChange={(e) => handleChange(e)}
                                         type="text"
                                         className="form-control col-8"

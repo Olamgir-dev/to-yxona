@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 function AdminLogin() {
-    const dispatch = useDispatch()
     const [login, setLogin] = useState({})
     const [showPassword, setShowPassword] = useState(false);
     const navgate = useNavigate();

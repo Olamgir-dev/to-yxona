@@ -20,7 +20,7 @@ function AddRestaurant() {
           `To'yxona qo'shildi`,
           'success'
         ).then(() => {
-          // navgate('/admin/home')
+          navgate('/admin/home')
         });
         console.log(res.data)
       })
