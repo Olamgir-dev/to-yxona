@@ -30,12 +30,10 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/:_id' element={<Restaurant />} />
             <Route path="*" element={<NoPage />} />
-          </Route>
-          <Route path='/admin' element={<AdminLayout />}> 
-            <Route index element={<AdminLogin />} />
-            <Route path='/admin/home' element={users &&( users ? <AdminHome /> : <Navigate to="/admin" replace={true} />)} />
-            <Route path='/admin/add' element={users &&( users ? <AddRestaurant /> : <Navigate to="/admin" replace={true} />)} />
-            <Route path='/admin/:_id' element={users &&( users ? <AdminRestaurant /> : <Navigate to="/admin" replace={true} />)} />
+            <Route path='/admin' element={<AdminLogin />} />
+            <Route path='/admin/home' element={users && (users ? <AdminHome /> : <Navigate to="/admin" replace={true} />)} />
+            <Route path='/admin/add' element={users && (users ? <AddRestaurant /> : <Navigate to="/admin" replace={true} />)} />
+            <Route path='/admin/:_id' element={users && (users ? <AdminRestaurant /> : <Navigate to="/admin" replace={true} />)} />
           </Route>
         </Routes>
       </BrowserRouter>
