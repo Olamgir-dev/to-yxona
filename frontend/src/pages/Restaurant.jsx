@@ -12,7 +12,7 @@ function Restaurant() {
     const { _id } = useParams()
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/restaurant/${_id}`)
+            .get(`https://toyxona-app.onrender.com/restaurant/${_id}`)
             .then((response) => {
                 setData(response.data)
                 setLoad(true)
@@ -25,7 +25,7 @@ function Restaurant() {
 
     const bookDate = () => {
         axios
-            .put(`http://localhost:5000/restaurant/book/${_id}`, { book })
+            .put(`https://toyxona-app.onrender.com/restaurant/book/${_id}`, { book })
             .then((response) => {
                 response.data ?
                     Swal.fire({

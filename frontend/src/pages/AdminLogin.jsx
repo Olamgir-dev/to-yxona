@@ -13,7 +13,7 @@ function AdminLogin() {
     }
     const handleSubmit = e => {
         e.preventDefault();
-        axios.post('http://localhost:5000/admin/login', login)
+        axios.post('https://toyxona-app.onrender.com/admin/login', login)
             .then(res => {
                 sessionStorage.setItem('user', JSON.stringify(res.data))
                 Swal.fire(

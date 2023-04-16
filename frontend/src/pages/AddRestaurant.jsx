@@ -13,7 +13,7 @@ function AddRestaurant() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5000/restaurant/add',  data )
+      .post('https://toyxona-app.onrender.com/restaurant/add',  data )
       .then((res) => {
         Swal.fire(
           'Yaxshi!',

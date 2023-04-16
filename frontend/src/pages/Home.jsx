@@ -35,7 +35,7 @@ function Home() {
   useEffect(  () => {
 
     axios
-      .get('http://localhost:5000/restaurant')
+      .get('https://toyxona-app.onrender.com/restaurant')
       .then(res => {
         dispatch(setRestaurant(res.data))
         setLoad(true)

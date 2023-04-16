@@ -21,7 +21,7 @@ function AdminRestaurant() {
     };
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/restaurant/${_id}`)
+            .get(`https://toyxona-app.onrender.com/restaurant/${_id}`)
             .then((response) => {
                 setData(response.data)
                 setLoad(true)
@@ -32,7 +32,7 @@ function AdminRestaurant() {
     }, [])
     const deleteRestaurant = () => {
         axios
-            .delete(`http://localhost:5000/restaurant/${_id}`)
+            .delete(`https://toyxona-app.onrender.com/restaurant/${_id}`)
             .then(response => {
                 Swal.fire({
                     title: `Siz xaqiaqtdan xam ${response?.data.name}  to'yxonani uchrmoqchmsiz?`,
@@ -59,7 +59,7 @@ function AdminRestaurant() {
     }
     const updateRestaurtnat = () => {
         axios
-           .put(`http://localhost:5000/restaurant/${_id}`,update)
+           .put(`https://toyxona-app.onrender.com/restaurant/${_id}`,update)
            .then(response => {
             Swal.fire(
                 'Yaxshi!',
@@ -81,7 +81,7 @@ function AdminRestaurant() {
 
     const bookDate = () => {
         axios
-            .put(`http://localhost:5000/restaurant/book/${_id}`, { book })
+            .put(`https://toyxona-app.onrender.com/restaurant/book/${_id}`, { book })
             .then((response) => {
                 response.data ?
                     Swal.fire({
