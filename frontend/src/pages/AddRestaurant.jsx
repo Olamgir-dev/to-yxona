@@ -13,7 +13,7 @@ function AddRestaurant() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('https://toyxona-app.onrender.com/restaurant/add',  data )
+      .post('https://toyxona-app.onrender.com/restaurant/add', data)
       .then((res) => {
         Swal.fire(
           'Yaxshi!',
@@ -56,11 +56,11 @@ function AddRestaurant() {
               </div>
               <div className="mb-3">
                 <label for="exampleFormControlInput3" className="form-label">Sig'im</label>
-                <input type="text" className="form-control" id="exampleFormControlInput3" placeholder="Sig'im" name='capacity' value={data.capacity || ''} onChange={handleChange} />
+                <input type="number" className="form-control" id="exampleFormControlInput3" placeholder="Sig'im" name='capacity' value={data.capacity || ''} onChange={handleChange} />
               </div>
               <div className="mb-3">
                 <label for="exampleFormControlInput3" className="form-label">Narx</label>
-                <input type="text" className="form-control" id="exampleFormControlInput3" placeholder="Narx" name='price' value={data.price || ''} onChange={handleChange} />
+                <input type="number" className="form-control" id="exampleFormControlInput3" placeholder="Narx" name='price' value={data.price || ''} onChange={handleChange} />
               </div>
               <div className="mb-3">
                 <label for="exampleFormControlInput4" className="form-label">Joylashuv</label>

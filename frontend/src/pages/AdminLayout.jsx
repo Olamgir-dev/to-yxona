@@ -2,12 +2,12 @@ import React from 'react'
 import { Outlet } from "react-router-dom";
 import AdminNavbar from '../component/AdminNavbar';
 import Footer from '../component/Footer';
-function AdminLayout() {
+function AdminLayout(props) {
+    const data = props.user;
     return (
-        <>
-            <AdminNavbar />
+        <> {data ? <AdminNavbar /> : null}
             <Outlet />
-            <Footer/>
+            {data ? <Footer /> : null}
         </>
     )
 }

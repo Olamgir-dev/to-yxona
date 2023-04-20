@@ -5,7 +5,8 @@ const {
   getRestaurant,
   putRestaurant,
   deleteRestaurant,
-  bookRestaurant } = require('../controllers/restaurantController')
+  bookRestaurant,
+  deleteBookRestaurant } = require('../controllers/restaurantController')
   
 const router = express.Router()
 
@@ -14,6 +15,7 @@ router.get('/:_id', getRestaurant)
 
 router.put('/:_id', putRestaurant)
 router.put('/book/:_id', bookRestaurant)
+router.put('/delete/:_id', deleteBookRestaurant)
 
 router.delete('/:_id', deleteRestaurant)
 

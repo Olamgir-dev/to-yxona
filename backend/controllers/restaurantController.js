@@ -42,7 +42,7 @@ const deleteRestaurant = (req, res) => {
 }
 const putRestaurant = async (req, res) => {
   const { _id } = await req.params
-   const { name, capacity, price, address, generalInformation } = await req.body
+  const { name, capacity, price, address, generalInformation } = await req.body
   try {
     const update = await Restaurant.updateOne(
       { _id },
@@ -76,6 +76,19 @@ const bookRestaurant = async (req, res) => {
     res.status(500).json({ isBook })
   }
 }
+const deleteBookRestaurant = async (req, res) => {
+  const { _id } = req.params
+  const { book } = req.body
+  try {
+    const deleteBook = await Restaurant.updateOne(
+      { _id },
+      { $pull: { bookArray: book } },
+      { new: true })
+    res.status(200).json(deleteBook)
+  } catch (err) { 
+    res.status(500).json({ error: err.message })
+  }
+}
 
 module.exports = {
   getAllRestaurant,
@@ -84,5 +97,6 @@ module.exports = {
   deleteRestaurant,
   bookRestaurant,
   putRestaurant,
-  bookRestaurant
+  bookRestaurant,
+  deleteBookRestaurant
 }

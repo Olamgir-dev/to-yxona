@@ -116,6 +116,7 @@ function AdminRestaurant() {
                 )
             })
     }
+    console.log(data?.bookArray)
     return (
         <>
             {load ? <div className="container mt-3" >

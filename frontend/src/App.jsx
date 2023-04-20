@@ -29,7 +29,9 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='/:_id' element={<Restaurant />} />
-            <Route path='/admin' element={<AdminLogin />} />
+          </Route>
+          <Route path='/admin' element={<AdminLayout user={users} />}>
+            <Route index element={<AdminLogin />} />
             <Route path='/admin/home' element={users && (users ? <AdminHome /> : <Navigate to="/admin" replace={true} />)} />
             <Route path='/admin/add' element={users && (users ? <AddRestaurant /> : <Navigate to="/admin" replace={true} />)} />
             <Route path='/admin/:_id' element={users && (users ? <AdminRestaurant /> : <Navigate to="/admin" replace={true} />)} />
